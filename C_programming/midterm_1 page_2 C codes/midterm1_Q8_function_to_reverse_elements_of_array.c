@@ -10,19 +10,19 @@
 
 #include <stdio.h>
 
-void reverse(float *ptr_a,int size);
+void reverse(float *ptr_a,float *ptr_rev,int size);
 
 int main()
 {
-    int size , i = 0 ;
+    int size , i = 0;
 
     printf("Enter the size of the array :  ");
     fflush(stdin);fflush(stdout);
     scanf("%d",&size);
 
-    float a[size] ;
+    float a[size] , a_rev[size];
 
-    printf("Enter the elements if the array :\n");
+    printf("Enter the elements if the array\n");
     for(i=0;i<size;i++)
     {
         printf("a[%d] :  ",i);
@@ -35,16 +35,19 @@ int main()
         printf("%.2f  ",a[i]);
     printf("\n");
 
-    reverse(a,size);
+    reverse(a,a_rev,size);
+
+    printf("The reverse of the array you entered :  ");
+    for(i=0;i<size;i++)
+    	printf("%.2f  ",a_rev[i]);
 
     return 0;
 }
 
-void reverse(float *ptr_a,int size)
+void reverse(float *ptr_a,float *ptr_rev,int size)
 {
-    int i = 0 ;
+    int i , j;
 
-    printf("The array after reverse will be :  ");
-    for(i=size-1;i>=0;i--)
-        printf("%.2f  ",ptr_a[i]);
+    for(i=0,j=size-1;i<size;i++,j--)
+        *(ptr_rev + i) = *(ptr_a + j);
 }
