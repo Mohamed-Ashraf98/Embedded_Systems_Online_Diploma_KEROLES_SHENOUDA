@@ -10,31 +10,32 @@
 
 #include <stdio.h>
 
-void reverse_digits(int var);
+int reverse_digits(int var);
 
 int main()
 {
-    int num ;
+    int num , num_rev ;
 
     printf("Enter +ve integer :  ");
     fflush(stdin);fflush(stdout);
     scanf("%d",&num);
 
-    printf("%d after reversing its digits will be :  ",num);
-
-    reverse_digits(num);
+    num_rev = reverse_digits(num);
+    printf("%d after reversing its digits will be :  %d", num, num_rev);
 
     return 0;
 }
 
-void reverse_digits(int var)
+int reverse_digits(int var)
 {
-	int remainder = 0 ;
+	int remainder = 0 , result = 0 ;
 
 	while(var!=0)
 	{
 		remainder = var%10 ;
+		result = result*10 + remainder ;
 		var /= 10;
-		printf("%d",remainder);
 	}
+
+	return result ;
 }

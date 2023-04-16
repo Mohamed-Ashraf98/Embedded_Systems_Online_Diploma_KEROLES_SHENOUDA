@@ -31,9 +31,9 @@ int binary(int var)
 {
 	int i , count = 0 ;
 
-	for(i=0;i<32;i++)
+	for(i=31;i>=0;i--)
 	{
-		if(var<<i & 1<<31)
+		if(var>>i & 1)
 		{
 			printf("1");
 			count++ ;
