@@ -4,7 +4,7 @@
  Author      : Mohamed Ashraf
  Version     :
  Copyright   : Your copyright notice
- Description : Hello World in C, Ansi-style
+ Description : Calculate the natural sum of a number entered by the user using Recursion, Ansi-style
  ============================================================================
  */
 
@@ -22,7 +22,7 @@ int main()
 
     sum = natural_sum(num);
 
-    printf("sum = %d",sum);
+    printf("natural sum of %d is  %d", num, sum);
 
     return 0;
 }
