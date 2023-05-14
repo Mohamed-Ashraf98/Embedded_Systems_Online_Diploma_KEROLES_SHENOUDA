@@ -1,0 +1,52 @@
+----------------------------------------------
+
+- touch main.c can.c can.h
+
+- gcc main.c can.c
+
+- ./a.exe
+> Hello
+  can_init >>>>>>>>
+
+- gcc main.c can.c -o final.exe
+
+- ./final.exe
+> Hello
+  can_init >>>>>>>>
+
+----------------------------------------------
+
+- gcc -c can.c
+
+- ar rcs lib_can.a can.o
+
+- ar t lib_can.a
+> can.o
+
+- gcc main.c lib_can.a
+
+- ./a.exe
+> Hello
+  can_init >>>>>>>>
+
+- gcc main.c lib_can.a -o test_1.exe
+
+- ./test_1.exe
+> Hello
+  can_init >>>>>>>>
+
+----------------------------------------------
+
+- gcc main.c -I. liba_can.a
+
+- ./a.exe
+> Hello
+  can_init >>>>>>>>
+
+- gcc main.c -I. liba_can.a -o test_2.exe
+
+- ./test_2.exe
+> Hello
+  can_init >>>>>>>>
+
+----------------------------------------------
