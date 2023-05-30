@@ -1,0 +1,146 @@
+--------------------------------------------------------------------------
+
+-> touch app.c uart.c uart.h
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-gcc.exe -c -I. -mcpu=arm926ej-s app.c -o app.o
+
+-> arm-none-eabi-gcc.exe -c -I. -mcpu=arm926ej-s uart.c -o uart.o
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objdump.exe -h app.o
+>> app.o:     file format elf32-littlearm
+
+   Sections:
+   Idx Name          Size      VMA       LMA       File off  Algn
+     0 .text         00000018  00000000  00000000  00000034  2**2
+                     CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+     1 .data         00000034  00000000  00000000  0000004c  2**2
+                     CONTENTS, ALLOC, LOAD, DATA
+     2 .bss          00000000  00000000  00000000  00000080  2**0
+                     ALLOC
+     3 .comment      00000012  00000000  00000000  00000080  2**0
+                     CONTENTS, READONLY
+     4 .ARM.attributes 00000032  00000000  00000000  00000092  2**0
+                     CONTENTS, READONLY
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objdump.exe -h uart.o
+>> uart.o:     file format elf32-littlearm
+
+   Sections:
+   Idx Name          Size      VMA       LMA       File off  Algn
+     0 .text         00000050  00000000  00000000  00000034  2**2
+                     CONTENTS, ALLOC, LOAD, READONLY, CODE
+     1 .data         00000000  00000000  00000000  00000084  2**0
+                     CONTENTS, ALLOC, LOAD, DATA
+     2 .bss          00000000  00000000  00000000  00000084  2**0
+                     ALLOC
+     3 .comment      00000012  00000000  00000000  00000084  2**0
+                     CONTENTS, READONLY
+     4 .ARM.attributes 00000032  00000000  00000000  00000096  2**0
+                     CONTENTS, READONLY
+
+--------------------------------------------------------------------------
+
+-> touch startup.s
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-as.exe -mcpu=arm926ej-s startup.s -o startup.o
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objectdump.exe -h startup.o
+>> startup.o:     file format elf32-littlearm
+
+   Sections:
+   Idx Name          Size      VMA       LMA       File off  Algn
+     0 .text         00000010  00000000  00000000  00000034  2**2
+                     CONTENTS, ALLOC, LOAD, RELOC, READONLY, CODE
+     1 .data         00000000  00000000  00000000  00000044  2**0
+                     CONTENTS, ALLOC, LOAD, DATA
+     2 .bss          00000000  00000000  00000000  00000044  2**0
+                     ALLOC
+     3 .ARM.attributes 00000022  00000000  00000000  00000044  2**0
+                     CONTENTS, READONLY
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-nm.exe app.o
+>> 00000000 T main
+   00000000 D str
+            U uart_send_string
+
+
+-> arm-none-eabi-nm.exe uart.o
+>> 00000000 T uart_send_string
+
+
+-> arm-none-eabi-nm.exe startup.o
+>>          U main
+   00000000 T reset
+            U stack_top
+   00000008 t stop
+
+--------------------------------------------------------------------------
+
+-> touch linker_script.ld
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-ld.exe -T linker_script.ld app.o uart.o statrup.o -o lab_1.elf
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objectdump.exe -h lab_1.elf
+>> lab_1.elf:     file format elf32-littlearm
+
+   Sections:
+   Idx Name          Size      VMA       LMA       File off  Algn
+     0 .reset        00000010  00010000  00010000  00008000  2**2
+                     CONTENTS, ALLOC, LOAD, READONLY, CODE
+     1 .text         00000068  00010010  00010010  00008010  2**2
+                     CONTENTS, ALLOC, LOAD, READONLY, CODE
+     2 .data         00000034  00010078  00010078  00008078  2**2
+                     CONTENTS, ALLOC, LOAD, DATA
+     3 .ARM.attributes 0000002e  00000000  00000000  000080ac  2**0
+                     CONTENTS, READONLY
+     4 .comment      00000011  00000000  00000000  000080da  2**0
+                     CONTENTS, READONLY
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objectdump.exe -D lab_1.elf
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-readelf.exe -a lab_1.elf
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-nm.exe lab_1.elf
+>> 00010010 T main
+   00010000 T reset
+   000110ac D stack_top
+   00010008 t stop
+   00010078 D str
+   00010028 T uart_send_string
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-ld.exe -T linker_script.ld -Map=output.map app.o uart.o startup.o -o lab_1.elf
+
+--------------------------------------------------------------------------
+
+-> arm-none-eabi-objcopy.exe -O binary lab_1.elf lab_1.bin
+
+--------------------------------------------------------------------------
+
+-> ../qemu-system-arm -M versatilepb -m 128M -nographic -kernel lab_1.bin
+>> learn-in-depth : Mohamed Ashraf El-Sayed
+
+--------------------------------------------------------------------------
