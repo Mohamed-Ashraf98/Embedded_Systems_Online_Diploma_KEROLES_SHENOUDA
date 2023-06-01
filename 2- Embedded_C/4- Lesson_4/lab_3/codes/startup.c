@@ -1,7 +1,7 @@
 /*
-startup.c for ARM Cortex-M3
+startup.c for ARM Cortex-M4
 learn_in_depth
-unit_3 lesson_3 lab_2
+unit_3 lesson_4 lab_3
 Mohamed Ashraf El-Sayed
 */
 
