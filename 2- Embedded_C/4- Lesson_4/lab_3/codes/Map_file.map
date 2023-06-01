@@ -1,0 +1,118 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+flash            0x00000000         0x20000000         xr
+SRAM             0x20000000         0x20000000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+
+.text           0x00000000      0x198
+ *(.vectors*)
+ .vectors       0x00000000       0x1c startup.o
+                0x00000000                g_arr_ptr_fn_vectors
+ *(.text)
+ .text          0x0000001c       0xb8 app.o
+                0x0000001c                main
+ .text          0x000000d4       0xc4 startup.o
+                0x000000d4                Reset_handler
+                0x0000018c                Bus_fault_handler
+                0x0000018c                Default_Handler
+                0x0000018c                Usage_fault_handler
+                0x0000018c                MM_fault_handler
+                0x0000018c                H_fault_handler
+                0x0000018c                NMI_handler
+ *(.rodata)
+                0x00000198                . = ALIGN (0x4)
+                0x00000198                _END_TEXT = .
+
+.glue_7         0x00000198        0x0
+ .glue_7        0x00000000        0x0 linker stubs
+
+.glue_7t        0x00000198        0x0
+ .glue_7t       0x00000000        0x0 linker stubs
+
+.vfp11_veneer   0x00000198        0x0
+ .vfp11_veneer  0x00000000        0x0 linker stubs
+
+.v4_bx          0x00000198        0x0
+ .v4_bx         0x00000000        0x0 linker stubs
+
+.iplt           0x00000198        0x0
+ .iplt          0x00000000        0x0 app.o
+
+.rel.dyn        0x00000198        0x0
+ .rel.iplt      0x00000000        0x0 app.o
+
+.data           0x20000000       0x10 load address 0x00000198
+                0x20000000                _START_DATA = .
+ *(.data)
+ .data          0x20000000       0x10 app.o
+                0x20000000                SYSCTL_RCGC2
+                0x20000004                GPIO_PORTF_DEN
+                0x20000008                GPIO_PORTF_DIR
+                0x2000000c                GPIO_PORTF_DATA
+ .data          0x20000010        0x0 startup.o
+                0x20000010                . = ALIGN (0x4)
+                0x20000010                _END_DATA = .
+
+.igot.plt       0x20000010        0x0 load address 0x000001a8
+ .igot.plt      0x00000000        0x0 app.o
+
+.bss            0x20000010      0x400 load address 0x000001a8
+                0x20000010                _START_BSS = .
+ *(.bss)
+ .bss           0x20000010        0x0 app.o
+ .bss           0x20000010      0x400 startup.o
+ *(COMMON)
+                0x20000410                . = ALIGN (0x4)
+                0x20000410                _END_BSS = .
+LOAD app.o
+LOAD startup.o
+OUTPUT(lab_3.elf elf32-littlearm)
+
+.debug_info     0x00000000      0x3fb
+ .debug_info    0x00000000      0x263 app.o
+ .debug_info    0x00000263      0x198 startup.o
+
+.debug_abbrev   0x00000000      0x197
+ .debug_abbrev  0x00000000       0xc4 app.o
+ .debug_abbrev  0x000000c4       0xd3 startup.o
+
+.debug_loc      0x00000000       0x9c
+ .debug_loc     0x00000000       0x38 app.o
+ .debug_loc     0x00000038       0x64 startup.o
+
+.debug_aranges  0x00000000       0x40
+ .debug_aranges
+                0x00000000       0x20 app.o
+ .debug_aranges
+                0x00000020       0x20 startup.o
+
+.debug_line     0x00000000      0x102
+ .debug_line    0x00000000       0x85 app.o
+ .debug_line    0x00000085       0x7d startup.o
+
+.debug_str      0x00000000      0x2a9
+ .debug_str     0x00000000      0x1fc app.o
+                                0x215 (size before relaxing)
+ .debug_str     0x000001fc       0xad startup.o
+                                0x1f0 (size before relaxing)
+
+.comment        0x00000000       0x11
+ .comment       0x00000000       0x11 app.o
+                                 0x12 (size before relaxing)
+ .comment       0x00000000       0x12 startup.o
+
+.ARM.attributes
+                0x00000000       0x33
+ .ARM.attributes
+                0x00000000       0x33 app.o
+ .ARM.attributes
+                0x00000033       0x33 startup.o
+
+.debug_frame    0x00000000       0x78
+ .debug_frame   0x00000000       0x2c app.o
+ .debug_frame   0x0000002c       0x4c startup.o
