@@ -1,0 +1,1 @@
+arm-none-eabi-gcc.exe -mcpu=cortex-m3 -mthumb -nostartfiles -g -gdwarf-2 -T linker_script.ld -I . startup.c app.c -o lab_4.elf
