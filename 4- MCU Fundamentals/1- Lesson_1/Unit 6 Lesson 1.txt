@@ -1,0 +1,11 @@
+- The solution exists in the Google Drive
+>> Link : https://drive.google.com/drive/folders/1nYHsbUwGskEy1gKvf2VIAm21QJJIJXH3?usp=sharing
+
+- Questions
+>> Q1 : define Micro-Processor, Micro-Controller, Embedded Systems, Mechatronic Systems and n-bit Processor.
+>> Q2 : compare between Micro-Processor vs Micro-controller.
+>> Q3 : compare between Von-Neuman vs Harvard Architecture.
+>> Q4 : by simple way illustrate the types of ROM.
+>> Q5 : by simple way illustrate the types of RAM.
+>> Q6 : why ROM is read-only memory although i can write on it ?
+>> Q7 : simple comparison between SRAM, DRAM, NVRAM, Masked ROM, PROM, EPROM, EEPROM and FLASH.
