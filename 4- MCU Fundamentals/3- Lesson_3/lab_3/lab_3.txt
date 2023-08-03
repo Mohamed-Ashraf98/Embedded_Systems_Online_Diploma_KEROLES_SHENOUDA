@@ -1,0 +1,8 @@
+- lab_3 : toggle led connected to pin 13 in port A on STM32F103C6
+
+>> change SYSCLK, HCLK, PCLK1 and PCLK2 with defferent frequencies
+	> APB1 Bus frequency 16 MHz
+	> APB2 Bus frequency 8  MHz
+	> AHB    frequency 32 MHz
+	> SYSCLK frequency 32 MHz
+	> use only internal HSI_RC
